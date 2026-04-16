@@ -1,10 +1,8 @@
 from aiogram.types import Message, KeyboardButton, ReplyKeyboardMarkup
 import db
 
-# ===== LANGUAGE STORAGE =====
 user_lang = {}
 
-# ===== LANGUAGE KEYBOARD =====
 lang_kb = ReplyKeyboardMarkup(
     keyboard=[
         [KeyboardButton(text="🇺🇿 O'zbek"), KeyboardButton(text="🇬🇧 English")]
@@ -61,17 +59,14 @@ def make_kb(items, back_text):
     )
 
 
-# ===== START =====
 async def start(message: Message):
     await message.answer("Tilni tanlang / Choose language", reply_markup=lang_kb)
 
 
-# ===== MAIN HANDLER =====
 async def handle_message(message: Message):
     user_id = message.from_user.id
     text = message.text
 
-    # ===== LANGUAGE SELECT =====
     if text == "🇺🇿 O'zbek":
         user_lang[user_id] = "uz"
         await message.answer("Asosiy menyu:", reply_markup=main_kb("uz"))
@@ -88,7 +83,6 @@ async def handle_message(message: Message):
         await message.answer("Tilni tanlang / Choose language", reply_markup=lang_kb)
         return
 
-    # ===== UZ =====
     if lang == "uz":
 
         if text == "🍽 Restoran menyusi":
@@ -112,7 +106,6 @@ async def handle_message(message: Message):
         elif text == "⬅️ Orqaga":
             await message.answer("Asosiy menyu:", reply_markup=main_kb("uz"))
 
-    # ===== ENG =====
     else:
 
         if text == "🍽 Restaurant menu":
